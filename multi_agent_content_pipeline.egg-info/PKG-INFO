@@ -1,0 +1,12 @@
+Metadata-Version: 2.4
+Name: multi_agent_content_pipeline
+Version: 0.1.0
+Summary: A fully local, zero-cost multi-agent AI system for content generation.
+Requires-Python: >=3.11.9
+Requires-Dist: crewai
+Requires-Dist: chromadb
+Requires-Dist: openvino
+Requires-Dist: ollama
+Requires-Dist: transformers
+Requires-Dist: optimum-intel
+Requires-Dist: streamlit

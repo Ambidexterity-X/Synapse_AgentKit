@@ -1,0 +1,7 @@
+crewai
+chromadb
+openvino
+ollama
+transformers
+optimum-intel
+streamlit

@@ -7,12 +7,15 @@ name = "multi_agent_content_pipeline"
 version = "0.1.0"
 description = "A fully local, zero-cost multi-agent AI system for content generation."
 requires-python = ">=3.11.9"
+dependencies = [
+	"crewai",
+	"chromadb",
+	"openvino",
+	"ollama",
+	"transformers",
+	"optimum-intel",
+	"streamlit",
+]
 
-[project.dependencies]
-crewai = "*"
-chromadb = "*"
-openvino = "*"
-ollama = "*"
-transformers = "*"
-optimum-intel = "*"
-streamlit = "*"
+[project.scripts]
+synapsecheck = "compatibility_check:main"
