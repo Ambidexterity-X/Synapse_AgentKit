@@ -13,6 +13,7 @@ This project is a fully local, zero-cost multi-agent AI system that autonomously
 - CLI entrypoints: synapse and synapsecheck
 
 ## Requirements
+- Run ``pip install -e `` and run the command ``synapsecheck`` to see if your PC can run this
 
 ### Software
 - **Python 3.11**
