@@ -3,3 +3,9 @@ docs/
 
 # Ignore .env files
 .env
+
+# Ignore the .venv folder and its contents
+.venv/
+
+# Ignore the .github folder and its contents
+.github/

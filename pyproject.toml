@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "multi_agent_content_pipeline"
+version = "0.1.0"
+description = "A fully local, zero-cost multi-agent AI system for content generation."
+requires-python = ">=3.11.9"
+
+[project.dependencies]
+crewai = "*"
+chromadb = "*"
+openvino = "*"
+ollama = "*"
+transformers = "*"
+optimum-intel = "*"
+streamlit = "*"
