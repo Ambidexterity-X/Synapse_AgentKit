@@ -12,6 +12,7 @@ dependencies = [
 	"chromadb",
 	"openvino",
 	"ollama",
+	"requests",
 	"transformers",
 	"optimum-intel",
 	"streamlit",
@@ -19,3 +20,4 @@ dependencies = [
 
 [project.scripts]
 synapsecheck = "compatibility_check:main"
+synapse = "main:main"
