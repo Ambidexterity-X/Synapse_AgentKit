@@ -1,5 +1,6 @@
 import platform
 import re
+import os
 
 def check_compatibility():
     cpu_info = platform.processor()
@@ -16,6 +17,14 @@ def check_compatibility():
 
     # If not compatible
     print("Incompatible: Requires Intel Core Ultra series, 14th Gen or above.")
+
+def execute_file(file_path):
+    # Ensure the file exists before execution
+    if os.path.exists(file_path):
+        print(f"Executing {file_path}...")
+        exec(open(file_path).read())
+    else:
+        print(f"Error: File {file_path} does not exist.")
 
 if __name__ == "__main__":
     check_compatibility()
