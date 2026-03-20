@@ -1,0 +1,5 @@
+# Ignore the docs folder and everything inside it
+docs/
+
+# Ignore .env files
+.env
