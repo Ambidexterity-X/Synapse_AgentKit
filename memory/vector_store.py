@@ -38,10 +38,11 @@ class VectorStore:
     def add(self, record: MemoryRecord) -> None:
         """Adds a single record to the configured vector store."""
         if self._collection is not None:
+            metadata = self._sanitize_metadata(record.metadata)
             self._collection.add(
                 ids=[record.record_id],
                 documents=[record.document],
-                metadatas=[record.metadata],
+                metadatas=[metadata],
                 embeddings=[record.embedding],
             )
             return
@@ -55,10 +56,15 @@ class VectorStore:
                 query_embeddings=[query_embedding],
                 n_results=n_results,
             )
-            ids = result.get("ids", [[]])[0]
-            documents = result.get("documents", [[]])[0]
-            metadatas = result.get("metadatas", [[]])[0]
-            embeddings = result.get("embeddings", [[]])[0]
+            ids_outer = result.get("ids") or [[]]
+            documents_outer = result.get("documents") or [[]]
+            metadatas_outer = result.get("metadatas") or [[]]
+            embeddings_outer = result.get("embeddings") or [[]]
+
+            ids = ids_outer[0] if ids_outer else []
+            documents = documents_outer[0] if documents_outer else []
+            metadatas = metadatas_outer[0] if metadatas_outer else []
+            embeddings = embeddings_outer[0] if embeddings_outer else []
 
             records: list[MemoryRecord] = []
             for idx, record_id in enumerate(ids):
@@ -86,3 +92,16 @@ class VectorStore:
         if norm_a == 0.0 or norm_b == 0.0:
             return 0.0
         return dot_product / (norm_a * norm_b)
+
+    @staticmethod
+    def _sanitize_metadata(metadata: dict[str, Any]) -> dict[str, Any]:
+        """Keeps metadata values compatible with ChromaDB's supported scalar types."""
+        cleaned: dict[str, Any] = {}
+        for key, value in metadata.items():
+            if value is None:
+                continue
+            if isinstance(value, (bool, int, float, str)):
+                cleaned[str(key)] = value
+            else:
+                cleaned[str(key)] = str(value)
+        return cleaned

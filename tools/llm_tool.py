@@ -31,7 +31,9 @@ class OllamaTool:
                         {"role": "user", "content": user_prompt},
                     ],
                 )
-                return str(response["message"]["content"]).strip()
+                content = self._extract_content(response)
+                if content:
+                    return content
             except (OSError, RuntimeError, ValueError, KeyError, TypeError):
                 pass
 
@@ -45,3 +47,16 @@ class OllamaTool:
             "Ollama is unavailable, so this fallback draft was generated locally.\n\n"
             f"Input summary:\n\n{snippet}\n"
         )
+
+    @staticmethod
+    def _extract_content(response: Any) -> str:
+        """Extracts message content from either dict or object-based Ollama responses."""
+        if isinstance(response, dict):
+            message = response.get("message")
+            if isinstance(message, dict):
+                return str(message.get("content", "")).strip()
+            return ""
+
+        message = getattr(response, "message", None)
+        content = getattr(message, "content", "") if message is not None else ""
+        return str(content).strip()
